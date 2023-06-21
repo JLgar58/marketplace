@@ -1,13 +1,13 @@
 // middleware login
 const Campground = require("../models/campground");
 const ExpressError = require("../utils/ExpressError");
-const { campgroundSchema } = require("../utils/schemas");
+const { locationSchema } = require("../utils/schemas");
 
 // joi validator
 // middleware joi
-module.exports.validateCampground = (req, res, next) => {
+module.exports.validateLocation = (req, res, next) => {
     // joi schema
-    const { error } = campgroundSchema.validate(req.body);
+    const { error } = locationSchema.validate(req.body);
     if (error) {
         const msg = error.details.map((e) => e.message).join(",");
         throw new ExpressError(msg, 400);
@@ -16,17 +16,17 @@ module.exports.validateCampground = (req, res, next) => {
     }
 };
 
-module.exports.isAuthor = async function (req, res, next) {
+module.exports.isAuthor = async function(req, res, next) {
     const { id } = req.params;
-    const campground = await Campground.findById(id);
-    if (!campground.author.equals(req.user._id)) {
+    const location = await Campground.findById(id);
+    if (!location.author.equals(req.user._id)) {
         req.flash("error", "access denied!");
         return res.redirect(`/locations/${id}`);
     }
     next();
 };
 
-module.exports.isReviewAuthor = async function (req, res, next) {
+module.exports.isReviewAuthor = async function(req, res, next) {
     const { id, _id } = req.params;
     const review = await Review.findById(_id);
     if (!review.author.equals(req.user._id)) {

@@ -12,11 +12,6 @@ router.use(methodOverride("_method"));
 // logout middleware
 router.use(logout);
 
-// router
-//   .route("/register")
-//   .get(Users.userRegisterForm)
-//   .post(catchAsync(Users.userRegister));
-
 router
     .route("/login")
     .get(Users.userLoginForm)

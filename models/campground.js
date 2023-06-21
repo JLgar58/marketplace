@@ -6,12 +6,11 @@ const imageSchema = new Schema({
     url: String,
     filename: String,
 });
-imageSchema.virtual("thumbnail").get(function () {
+imageSchema.virtual("thumbnail").get(function() {
     return this.url.replace("/upload", "/upload/w_200");
 });
 
-const campgroundSchema = new Schema(
-    {
+const locationSchema = new Schema({
         title: String,
         images: [imageSchema],
         geometry: {
@@ -36,13 +35,14 @@ const campgroundSchema = new Schema(
     opts
 );
 
-campgroundSchema.virtual("properties.popUpMarkup").get(function () {
+locationSchema.virtual("properties.popUpMarkup").get(function() {
     return `<strong>
-  <a class="text-decoration-none" href="/locations/${
-      this._id
-  }">${this.title}</a>
+  <a class="text-decoration-none" href="/locations/${this._id}">${
+      this.title
+    }</a>
   </strong>
-  <p>${this.description.slice(0, 20)}...</p>`;
+  <p>${this.description.slice(0, 20)}...</p><br />
+  <a class="text-decoration-none" href="/locations/${this._id}">see more</a>`;
 });
 
-module.exports = mongoose.model("Campground", campgroundSchema);
+module.exports = mongoose.model("Campground", locationSchema);
