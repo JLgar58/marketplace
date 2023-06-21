@@ -1,0 +1,59 @@
+<% layout('partials/boilerplate') -%>
+    <style>
+        img.img-thumbnail {
+            max-height: 100px;
+        }
+    </style>
+    <section class="container mt-md-5 mt-3" role="main">
+        <div class="row">
+            <h1 class="text-center">Edit Location</h1>
+            <div class="col-md-6 offset-md-3 col-12">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <form action="/locations/<%= location._id %>?_method=PUT" class="validated-form" method="post" novalidate enctype="multipart/form-data">
+                            <div class="mb-3">
+                                <label for="title" class="form-label">Title:</label>
+                                <input class="form-control" type="text" id="title" name="campground[title]" placeholder="a cabin in the woods..." value="<%= location.title %>" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="location" class="form-label">Location:</label>
+                                <input class="form-control" type="text" id="location" name="campground[location]" placeholder="patitos st..." value="<%= location.location %>" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="price" class="form-label">Price:</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input class="form-control" type="number" id="price" name="campground[price]" placeholder="0.00" aria-label="Amount (to the nearest dollar)" value="<%= location.price %>" required>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="image" class="form-label">Add/Modify Images:</label>
+                                <input class="form-control" type="file" id="image" name="campground[image]" multiple>
+                            </div>
+                            <div class="mb-3">
+                                <% location.images.forEach((img, i)=>{ %>
+                                    <img src="<%= img.thumbnail %>" class="img-thumbnail" alt="<%= location.title %>">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="deleteImages[]" value="<%= img.filename %>" id="image-<%= i %>">
+                                        <label class="form-check-label" for="image-<%= i %>">
+                  Delete?
+                </label>
+                                    </div>
+                                    <% }) %>
+                            </div>
+                            <div class="mb-3">
+                                <label for="description" class="form-label">Description:</label>
+                                <textarea class="form-control" type="text" id="description" name="campground[description]" placeholder="lorem ipsum..." required><%= location.description %></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <button type="submit" class="btn w-100 btn-success">Save!</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="mb-md-3 my-md-auto px-3 my-3">
+                    <a href="/locations" class="btn w-100 btn-danger">Cancel!</a>
+                </div>
+            </div>
+        </div>
+    </section>

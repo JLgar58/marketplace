@@ -1,0 +1,73 @@
+<link rel="stylesheet" href="/css/maps.css">
+<link rel="stylesheet" type="text/css" href="/css/stars.css">
+<% layout('partials/boilerplate') -%>
+<section class="container mt-md-5 mt-3" role="main">
+  <div class="row">
+    <div class="col-md-6 col-12">
+
+      <div id="campgroundCarousel" class="carousel slide">
+        <div class="carousel-inner">
+          <!-- < for(let image of campground.images){ %> -->
+          <% campground.images.forEach((image, i)=>{ %>
+          <div class="carousel-item <%= i=== 0 ? 'active':'' %>">
+            <img src="<%= image.url %>" class="card-img-top d-block w-100" alt="<%= campground.title %>" />
+          </div>
+          <% }) %>
+        </div>
+        <% if (campground.images.length > 1) { %>
+        <button class="carousel-control-prev" type="button" data-bs-target="#campgroundCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#campgroundCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+        <% } %>
+      </div>
+      <div class="card mb-3">
+        <!-- <% for(let image of campground.images){ %>
+      <img src="<%= image.url %>" class="card-img-top" alt="<%= campground.title %>" />
+      <% } %> -->
+        <div class="card-body">
+          <h5 class="card-title">
+            <%= campground.title %>
+          </h5>
+          <p class="card-text">
+            <%= campground.description %>
+          </p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Submitted by:
+            <%= campground.author.username %>
+          </li>
+          <li class="list-group-item text-muted">
+            <%= campground.location %>
+          </li>
+          <li class="list-group-item">$
+            <%= campground.price %>/night</li>
+        </ul>
+        <% if (currentUser && campground.author.equals(currentUser._id)) { %>
+        <div class="card-body">
+          <a href="/locations/<%= campground._id %>/edit" class="card-link btn btn-info">Edit</a>
+          <form class="d-inline" action="/locations/<%= campground._id %>?_method=DELETE" method="post">
+            <button type="submit" class="btn btn-danger">Delete!</button>
+          </form>
+        </div>
+        <% } %>
+        <div class="card-footer text-muted text-center">
+          <a href="/locations" class="card-link btn btn-dark">Back to locations</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-12 mb-3">
+      <div id='mapShow'></div>
+    </div>
+  </div>
+</section>
+<!-- scripts -->
+<script>
+  const mapToken = "<%- process.env.MAPBOX_TOKEN %>";
+  const campground = <%- JSON.stringify(campground) %>;
+</script>
+<script src="/scripts/showPageMap.js"></script>

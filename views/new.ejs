@@ -1,0 +1,60 @@
+<% layout('partials/boilerplate') -%>
+<section class="container mt-md-5 mt-3" role="main">
+  <div class="row">
+    <h1 class="text-center">New Location</h1>
+    <div class="col-md-6 offset-md-3 col-12">
+      <div class="card shadow">
+        <div class="card-body">
+          <form action="/locations" class="validated-form" method="post" novalidate enctype="multipart/form-data">
+            <div class="mb-3">
+              <label for="title" class="form-label">Title:</label>
+              <input class="form-control" type="text" id="title" name="campground[title]" placeholder="a cabin in the woods..." required>
+              <div class="invalid-feedback">
+                Please provide a title!
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="location" class="form-label">Location:</label>
+              <input class="form-control" type="text" id="location" name="campground[location]" placeholder="patitos st..." required>
+              <div class="invalid-feedback">
+                Please provide a location!
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="price" class="form-label">Price:</label>
+              <div class="input-group">
+                <span class="input-group-text">$</span>
+                <input class="form-control" type="number" id="price" name="campground[price]" placeholder="0.00" aria-label="Amount (to the nearest dollar)" required>
+                <div class="invalid-feedback">
+                  Please provide the correct amount
+                </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="image" class="form-label">Add images:</label>
+              <input class="form-control" type="file" id="image" name="campground[image]" placeholder="patitos st..." multiple>
+              <div class="invalid-feedback">
+                img URL invalid!
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="description" class="form-label">Description:</label>
+              <textarea class="form-control" type="text" id="description" name="campground[description]" placeholder="lorem ipsum..." required></textarea>
+              <div class="invalid-feedback">
+                Description too short!
+              </div>
+            </div>
+            <div class="mb-3">
+              <button type="submit" class="btn w-100 btn-success">Add a new one!</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="mt-3">
+        <a href="/locations" class="btn btn-outline-primary w-100">back to locations</a>
+      </div>
+    </div>
+  </div>
+</section>

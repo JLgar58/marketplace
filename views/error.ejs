@@ -1,0 +1,13 @@
+<% layout('partials/boilerplate') -%>
+<section class="container mt-md-5 mt-3" role="main">
+  <div class="alert alert-danger" role="alert">
+    <h4 class="alert-heading text-center">Oh no! <span><%= err.message %></span></h4>
+    <% if (process.env.NODE_ENV !== 'production') { %>
+    <p class="mw-100 overflow-x-hidden">
+      <%= err.stack %>
+    </p>
+    <% } %>
+    <hr>
+    <a href="/locations" class="mb-0 w-100 btn btn-danger">Go back to main!</a>
+  </div>
+</section>

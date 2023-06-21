@@ -1,0 +1,48 @@
+<% layout('partials/boilerplate') -%>
+<style>
+  @media screen and (max-width:700px) {
+    body {
+      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 0% 100%/contain url('https://images.unsplash.com/photo-1503709371-a2bffb8242d4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw0MjM3NjV8MHwxfHJhbmRvbXx8fHx8fHx8fDE2ODAyODIwNDE&ixlib=rb-4.0.3&q=80&w=800') no-repeat;
+    }
+  }
+</style>
+<section class="container mt-md-5 mt-3" role="main">
+  <!-- <div class="container d-flex justify-content-center align-items-center mt-5"> -->
+  <div class="row justify-content-center mb-md-5 mb-0">
+    <!-- <div class="col-md-6 offset-md-3 col-xl-4 offset-xl-4"> -->
+    <div class="col-md-6 col-xl-4 d-none d-md-block">
+      <img alt="..." class="card-img-top" src="https://images.unsplash.com/photo-1503709371-a2bffb8242d4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw0MjM3NjV8MHwxfHJhbmRvbXx8fHx8fHx8fDE2ODAyODIwNDE&ixlib=rb-4.0.3&q=80&w=1600">
+    </div>
+    <!-- <div class="col-md-6 offset-md-3 col-xl-4 offset-xl-4"> -->
+    <div class="col-md-6 col-xl-4 align-self-center">
+      <div class="card shadow">
+        <div class="card-body">
+          <h5 class="card-title">Admin Panel</h5>
+          <form action="/admin/login" method="post" class="validated-form" novalidate>
+            <div class="mb-3">
+              <label for="username" class="form-label">Username:</label>
+              <input class="form-control" type="text" id="username" name="username" placeholder="username..." autofocus required>
+              <div class="invalid-feedback">
+                Please provide a username!
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password:</label>
+              <input class="form-control" type="password" id="password" name="password" placeholder="password..." required>
+              <div class="invalid-feedback">
+                Please provide a password!
+              </div>
+            </div>
+            <div class="d-grid gap-2 col-12 mx-auto mb-3">
+              <button type="submit" class="btn btn-success">Log in!</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="my-3">
+        <a href="/locations" class="btn btn-info w-100 text-white">back to locations</a>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- </div> -->
