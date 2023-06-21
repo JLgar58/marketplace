@@ -11,7 +11,6 @@ const ejs = require("ejs");
 const mongoose = require("mongoose");
 const session = require("express-session");
 const mongoStore = require("connect-mongo");
-const Campground = require("./models/campground");
 const User = require("./models/user");
 
 const mongoSanitize = require("express-mongo-sanitize");
@@ -55,11 +54,6 @@ const campgrounds = require("./routes/campground");
 const users = require("./routes/users");
 
 const ExpressError = require("./utils/ExpressError");
-const catchAsync = require("./utils/catchAsync");
-const { campgroundSchema } = require("./utils/schemas");
-
-// using joi
-const Joi = require("joi");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -91,49 +85,6 @@ app.use(passport.session());
 // To remove data using these defaults:
 app.use(mongoSanitize());
 
-// const scriptSrcUrls = [
-//   "https://stackpath.bootstrapcdn.com/",
-//   "https://api.tiles.mapbox.com/",
-//   "https://api.mapbox.com/",
-//   "https://kit.fontawesome.com/",
-//   "https://cdnjs.cloudflare.com/",
-//   "https://cdn.jsdelivr.net",
-// ];
-// const styleSrcUrls = [
-//   "https://kit-free.fontawesome.com/",
-//   "https://stackpath.bootstrapcdn.com/",
-//   "https://api.mapbox.com/",
-//   "https://api.tiles.mapbox.com/",
-//   "https://fonts.googleapis.com/",
-//   "https://use.fontawesome.com/",
-// ];
-// const connectSrcUrls = [
-//   "https://api.mapbox.com/",
-//   "https://a.tiles.mapbox.com/",
-//   "https://b.tiles.mapbox.com/",
-//   "https://events.mapbox.com/",
-// ];
-// const fontSrcUrls = [];
-// app.use(
-//   helmet.contentSecurityPolicy({
-//     directives: {
-//       defaultSrc: [],
-//       connectSrc: ["'self'", ...connectSrcUrls],
-//       scriptSrc: ["'unsafe-inline'", "'self'", ...scriptSrcUrls],
-//       styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
-//       workerSrc: ["'self'", "blob:"],
-//       objectSrc: [],
-//       imgSrc: [
-//         "'self'",
-//         "blob:",
-//         "data:",
-//         "https://res.cloudinary.com/douqbebwk/", //SHOULD MATCH YOUR CLOUDINARY ACCOUNT!
-//         "https://images.unsplash.com/",
-//       ],
-//       fontSrc: ["'self'", ...fontSrcUrls],
-//     },
-//   })
-// );
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 
 // using passport
@@ -141,25 +92,6 @@ passport.use(new LocalStrategy(User.authenticate()));
 
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-// passport.serializeUser(function (user, cb) {
-//     process.nextTick(function () {
-//         cb(null, { id: user.id, username: user.username, name: user.displayName });
-//     });
-// });
-
-// passport.deserializeUser(function (user, cb) {
-//     process.nextTick(function () {
-//         return cb(null, user);
-//     });
-// });
-// app.get('/fakeuser', async(req, res) => {
-//     const user = new User({
-//         email: 'user@gmail.com',
-//         username: 'colttt',
-//     });
-//     const newUser = await User.register(user, 'chicken');
-//     res.send(newUser);
-// });
 
 // flash middleware
 app.use((req, res, next) => {
@@ -176,7 +108,6 @@ app.route("/").get((req, res) => {
 
 // routes
 app.use("/locations", campgrounds);
-// app.use("/campgrounds/:id/reviews", reviews);
 app.use("/admin", users);
 
 app.all("*", (req, res, next) => {
